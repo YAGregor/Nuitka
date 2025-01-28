@@ -1650,6 +1650,17 @@ Error, expression '%s' for module '%s' did not evaluate to 'tuple[str]' or 'list
             logger=self, full_name=full_name, config_name="'when' configuration"
         )
 
+        def get_constant(constant_name):
+            assert type(constant_name) is str, constant_name
+
+            result = self.getExpressionConstants(full_name=full_name)[constant_name]
+
+            # TODO: Record the constant value in report.
+
+            return result
+
+        context["get_constant"] = get_constant
+
         def get_parameter(parameter_name, default):
             result = Options.getModuleParameter(full_name, parameter_name)
 
